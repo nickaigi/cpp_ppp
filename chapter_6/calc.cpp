@@ -1,40 +1,31 @@
 #include<iostream>
+#include<vector>
 using namespace std;
+
+class Token{
+    public:
+        char kind;
+        double value;
+};
+
+Token get_token();
 
 inline void error(const string&);
 
+vector<Token> tok;
+
 int main(){
-    cout<<"Please enter expression(we can hande +,-,*, and /)\n";
-    cout<<"add an x to end expression (e.g., 1+2*3x): ";
-    int lval = 0;
-    int rval;
-    cin>>lval;
-    if(!cin)
-        error("no first operand");
-    for(char op; cin>>op;){
-        if(op!='x')
-            cin>>rval;
-        if(!cin)
-            error("no secode operand");
-        switch(op){
-            case '+':
-                lval += rval;
-                break;
-            case '-':
-                lval -= rval;
-                break;
-            case '*':
-                lval *= rval;
-                break;
-            case '/':
-                lval /= rval;
-                break;
-            default:
-                cout<<"Result: "<<lval<<'\n';
-                return 0;
-        }
+    while(cin){
+        Token t = get_token();
+        tok.push_back(t);
     }
-    error("bad expression");
+    for(Token t: tok)
+        cout<<t.kind<<' '<<t.value;
+    //for(int i = 0; i < tok.size(); ++i){
+    //    if(tok[i].kind == '*'){
+    //        double d = tok[i-1].value * tok[i+1].value
+    //    }
+    //}
 }
 
 // error() simply disguises throws:
